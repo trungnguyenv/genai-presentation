@@ -20,6 +20,10 @@ _Avoid_: Walkthrough, showcase
 The decided plan for the talk (outline, the point of each slide, and the demo script), ready to hand off for building.
 _Avoid_: Plan, outline (when meaning the whole spec)
 
+**Slide point**:
+The one-line point of a slide, shown as a caption at its bottom. The talk spec states one per slide.
+_Avoid_: Speaker note, takeaway, caption (when meaning this)
+
 **Audience**:
 The team the talk is given to: developers and testers with limited exposure to generative AI.
 _Avoid_: Attendees, users
