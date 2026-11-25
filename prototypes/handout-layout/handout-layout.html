@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PROTOTYPE – Handout layout</title>
+<!-- PROTOTYPE, throwaway. Answers: how is the handout laid out, and in what format? Switch versions with ?v=A|B|C or the bar at the bottom. -->
+<style>
+  :root { --bg:#fff; --fg:#1b1b1f; --muted:#666; --line:#ddd; --box:#f6f6f8; --accent:#4b3fd1; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#16161a; --fg:#eee; --muted:#aaa; --line:#333; --box:#222228; --accent:#9d95ff; } }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.5 system-ui, sans-serif; padding-bottom:90px; }
+  .wrap { max-width:820px; margin:0 auto; padding:24px 16px; }
+  h1 { font-size:1.7rem; margin:.2em 0; } h2 { margin-top:2em; border-bottom:1px solid var(--line); padding-bottom:.2em; } h3 { margin-bottom:.3em; }
+  a { color:var(--accent); }
+  pre { background:var(--box); border:1px solid var(--line); padding:12px; overflow:auto; white-space:pre-wrap; font-size:.8rem; max-height:260px; }
+  .note { background:#fff4c2; color:#333; padding:8px 12px; border-radius:6px; font-size:.9rem; }
+  .muted { color:var(--muted); font-size:.9rem; }
+  button { font:inherit; cursor:pointer; padding:4px 10px; border:1px solid var(--accent); background:transparent; color:var(--accent); border-radius:6px; }
+  button.primary { background:var(--accent); color:#fff; }
+  .skillhead { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  .skillhead h3 { margin:0; flex:1; }
+  .card { border:1px solid var(--line); border-radius:8px; padding:12px 16px; margin:12px 0; }
+  .tree { font-family:ui-monospace, monospace; background:var(--box); padding:12px; border-radius:6px; }
+  .tree span { cursor:pointer; text-decoration:underline; }
+  .file { border:1px solid var(--line); border-radius:8px; margin:16px 0; }
+  .file > .fname { background:var(--box); padding:6px 12px; font-family:ui-monospace, monospace; font-size:.85rem; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; }
+  .file > .body { padding:4px 16px; }
+  .slide { aspect-ratio:16/9; border:2px solid var(--line); border-radius:8px; margin:16px 0; padding:4% 5%; position:relative; display:flex; flex-direction:column; justify-content:center; font-size:1.3rem; }
+  .slide .cap { position:absolute; bottom:8px; left:5%; right:5%; font-size:.8rem; color:var(--muted); border-top:1px solid var(--line); padding-top:4px; }
+  .slide h2 { border:0; margin:0 0 .4em; font-size:2rem; }
+  table { border-collapse:collapse; width:100%; font-size:.9rem; } td, th { border:1px solid var(--line); padding:6px 8px; vertical-align:top; text-align:left; }
+  #bar { position:fixed; bottom:0; left:0; right:0; background:#111; color:#fff; padding:10px 16px; display:flex; gap:8px; align-items:center; flex-wrap:wrap; font-size:.9rem; z-index:9; }
+  #bar button { color:#fff; border-color:#888; } #bar button.on { background:#fff; color:#111; }
+  #bar .sum { flex:1; min-width:200px; }
+  .v { display:none; } .v.on { display:block; }
+</style>
+</head>
+<body>
+
+<!-- ================= A: one self-contained HTML page, "do this" first ================= -->
+<div class="v" id="vA"><div class="wrap">
+  <p class="note">A · <b>handout.html</b>: one self-contained HTML file beside the deck, same look. Ordered by "what do I do on Monday": try it, skills, people, sources, licence.</p>
+  <h1>Let the AI grill you: handout</h1>
+  <p class="muted">From the talk on 2 Dec 2026. Open this file in any browser. Nothing here needs the internet except the links.</p>
+
+  <h2>1. Try it this week</h2>
+  <ol>
+    <li>Open a <b>new chat</b> for your next task.</li>
+    <li>Copy <b>grill-me</b> below and paste it in. Write your task after it, in the same message.</li>
+    <li>Answer the questions. Short answers are fine: "Q1 yes, Q2 no: …".</li>
+    <li>When it asks for a file, error or document, paste or attach the real thing.</li>
+  </ol>
+  <p class="muted"><b>IDE group</b> (Cursor or Claude): install the real skills from <a href="https://github.com/mattpocock/skills/tree/5863806dd4e15c63174bee4e7515a4256792ecfa">mattpocock/skills</a> instead. The pastes below are for Copilot Chat.</p>
+
+  <h2>2. Skills for Copilot Chat</h2>
+  <p class="muted">Each one is whole and self-contained. <b>Copy</b> and paste it at the start of a new chat, or <b>Download .md</b> and attach the file (<b>+</b> › Upload images and files). Tip: save it in Prompt Lab so you can find it again.</p>
+  <div data-skills="A"></div>
+
+  <h2>3. Who to follow</h2>
+  <ul>
+    <li><b>Matt Pocock</b>: <a href="https://github.com/mattpocock/skills">mattpocock/skills</a> and the <a href="https://www.aihero.dev/ai-coding-dictionary/skill">AI Coding Dictionary</a> on AI Hero.</li>
+    <li><b>Jeff Su</b>: <a href="https://www.youtube.com/@jeffsu">YouTube</a>. Start with <a href="https://www.youtube.com/watch?v=FwOTs4UxQS4">AI Agents, Clearly Explained</a>.</li>
+    <li><b>Kun Chen</b>: <a href="https://www.youtube.com/@kunchenguid">YouTube</a> and <a href="https://blog.kunchenguid.com">newsletter</a>. Start with <a href="https://creatoreconomy.so/p/how-this-ex-meta-l8-engineer-ships-40-prs-a-day-with-ai-kun-chen">Agentic Engineering, Clearly Explained in 60 Min</a> (for people already using AI coding tools).</li>
+    <li>Also: Anthropic's <a href="https://code.claude.com/docs/en/best-practices">Claude Code best practices</a>.</li>
+  </ul>
+
+  <h2>4. Sources for each idea</h2>
+  <div data-sources></div>
+
+  <h2>5. Licence</h2>
+  <p class="muted">The three skills above are adapted from mattpocock/skills, which is MIT-licensed.</p>
+  <pre data-licence></pre>
+</div></div>
+
+<!-- ================= B: a folder of .md files (README + one file per skill + LICENSE) ================= -->
+<div class="v" id="vB"><div class="wrap">
+  <p class="note">B · <b>a folder</b> (zip, or a folder in this repo): README.md plus one <code>.md</code> per skill and a LICENSE. Each skill file <i>is</i> the thing you attach in Copilot Chat; nothing to copy out. Shown here as the files would read.</p>
+  <div class="tree">
+    handout/<br>
+    ├── <span data-jump="f-readme">README.md</span><br>
+    ├── skills/<br>
+    │&nbsp;&nbsp; ├── <span data-jump="f-grill-me">grill-me.md</span><br>
+    │&nbsp;&nbsp; ├── <span data-jump="f-prototype">prototype.md</span><br>
+    │&nbsp;&nbsp; └── <span data-jump="f-wait-what">wait-what.md</span><br>
+    └── <span data-jump="f-licence">LICENSE</span>
+  </div>
+
+  <div class="file" id="f-readme"><div class="fname">README.md</div><div class="body">
+    <h1>Let the AI grill you</h1>
+    <p>Handout for the talk on 2 Dec 2026. Ordered like the talk.</p>
+    <h3>Skills in this folder (Copilot Chat)</h3>
+    <p>In Copilot Chat: <b>+</b> › Upload images and files › pick a file from <code>skills/</code>, then write "Follow the attached skill" and your task.</p>
+    <table><tr><th>File</th><th>Use it when</th></tr>
+      <tr><td><code>skills/grill-me.md</code></td><td>Start of any task: the AI interviews you first.</td></tr>
+      <tr><td><code>skills/prototype.md</code></td><td>You can't decide in the abstract: get 3 rough versions.</td></tr>
+      <tr><td><code>skills/wait-what.md</code></td><td>The AI lost you: it re-explains in plain words.</td></tr>
+    </table>
+    <h3>The ideas, in talk order</h3>
+    <div data-sources></div>
+    <h3>Who to follow</h3>
+    <ul>
+      <li>Matt Pocock: <a href="https://github.com/mattpocock/skills">mattpocock/skills</a>, <a href="https://www.aihero.dev/ai-coding-dictionary/skill">AI Coding Dictionary</a></li>
+      <li>Jeff Su: <a href="https://www.youtube.com/@jeffsu">YouTube</a> · start: <a href="https://www.youtube.com/watch?v=FwOTs4UxQS4">AI Agents, Clearly Explained</a></li>
+      <li>Kun Chen: <a href="https://www.youtube.com/@kunchenguid">YouTube</a>, <a href="https://blog.kunchenguid.com">newsletter</a> · start: <a href="https://creatoreconomy.so/p/how-this-ex-meta-l8-engineer-ships-40-prs-a-day-with-ai-kun-chen">Agentic Engineering, Clearly Explained</a></li>
+      <li>Anthropic: <a href="https://code.claude.com/docs/en/best-practices">Claude Code best practices</a></li>
+    </ul>
+    <p class="muted">Licence: see <code>LICENSE</code>. Each skill file also names its source in a comment.</p>
+  </div></div>
+  <div data-skills="B"></div>
+  <div class="file" id="f-licence"><div class="fname">LICENSE</div><div class="body"><pre data-licence></pre></div></div>
+</div></div>
+
+<!-- ================= C: no separate handout; appendix slides at the end of the deck ================= -->
+<div class="v" id="vC"><div class="wrap">
+  <p class="note">C · <b>no separate file</b>: the handout is an appendix after slide 17 in the deck HTML you already share. One file to send. The skill slides scroll inside the frame and have a Copy button.</p>
+  <div class="slide"><h2>Appendix</h2><p>Everything from the talk, to copy and keep.</p><div class="cap">A1 · Skills, people and sources are after this slide.</div></div>
+  <div data-skills="C"></div>
+  <div class="slide"><h2>Who to follow</h2>
+    <ul style="font-size:1rem">
+      <li>Matt Pocock · <a href="https://github.com/mattpocock/skills">mattpocock/skills</a> · <a href="https://www.aihero.dev/ai-coding-dictionary/skill">AI Coding Dictionary</a></li>
+      <li>Jeff Su · <a href="https://www.youtube.com/watch?v=FwOTs4UxQS4">AI Agents, Clearly Explained</a></li>
+      <li>Kun Chen · <a href="https://creatoreconomy.so/p/how-this-ex-meta-l8-engineer-ships-40-prs-a-day-with-ai-kun-chen">Agentic Engineering, Clearly Explained</a></li>
+      <li>Anthropic · <a href="https://code.claude.com/docs/en/best-practices">Claude Code best practices</a></li>
+    </ul><div class="cap">A5 · The links behind slide 17.</div></div>
+  <div class="slide"><h2>Sources</h2><div data-sources style="font-size:.75rem;overflow:auto"></div><div class="cap">A6 · Where each idea comes from.</div></div>
+  <div class="slide"><h2>Licence</h2><pre data-licence style="font-size:.6rem;max-height:none"></pre><div class="cap">A7 · MIT text for the adapted skills.</div></div>
+</div></div>
+
+<div id="bar">
+  <button data-v="A">A</button><button data-v="B">B</button><button data-v="C">C</button>
+  <span class="sum" id="sum"></span>
+  <span class="muted" style="color:#aaa">←/→ to switch</span>
+</div>
+
+<script>
+const SKILLS = {"grill-me": "<skill name=\"grill-me\">\n<!-- PROTOTYPE, throwaway. Adapted from mattpocock/skills (grill-me + grilling, commit 5863806). MIT, Copyright (c) 2026 Matt Pocock. -->\n\nFollow this skill for the rest of this chat. The task I want to work on comes after the skill, or in my next message.\n\nDo not produce the output yet. First, interview me relentlessly about the task until we reach a shared understanding.\n\nMap the task as a **design tree**: every decision branches into the decisions that hang off it.\n\nWork the tree in **rounds**. The **frontier** is every decision whose prerequisites are already settled: the questions you can ask now without guessing at answers you haven't heard yet. Ask the whole frontier in one round: number each question and give your recommended answer. Then stop and wait for my answers before the next round.\n\nFormat a round like this:\n\n\u2753 **Q1** - **<question title>**: <question body, can be several paragraphs, including choices>\n\n\u27a1\ufe0f <your recommended answer>\n\n---\n\n\u2753 **Q2** - **<question title>**: <question body>\n\n\u27a1\ufe0f <your recommended answer>\n\nWord each question so that \"yes\" accepts your recommended answer. I may answer briefly, for example \"Q1 yes, Q2 no: ...\".\n\nEach round I answer reshapes the tree: settled decisions push the frontier outward and unblock questions that depended on them. Recompute the frontier and ask the next round. A question whose answer depends on another question still open in this round belongs to a later round.\n\nYou can't see my files, systems or documents, so **ask me to show you the real thing** instead of guessing or relying on my description: ask me to paste or attach the exact file, error message, log, requirement, screenshot or document you need, and say exactly which one. Ask only for material you need for the current frontier.\n\nThe decisions are mine: put each one to me and wait. Never answer your own questions.\n\nThe interview is done when the frontier is empty: every branch of the tree visited, nothing silently assumed. Then summarise the shared understanding in a short list of decisions and ask me to confirm it. Do not produce the output until I confirm.\n</skill>\n", "prototype": "<skill name=\"prototype\">\n<!-- PROTOTYPE, throwaway. Adapted from mattpocock/skills (prototype, commit 5863806). MIT, Copyright (c) 2026 Matt Pocock. -->\n\nFollow this skill for the rest of this chat. The question I want answered comes after the skill, or in my next message.\n\nA prototype is a **cheap, rough version of the output that answers a question**. I react to something concrete instead of deciding in the abstract. The question decides the shape.\n\n1. **Name the question.** In one line, state the question the prototype answers, for example \"What should the error message say?\" or \"Which test cases matter for this flow?\". If you can't tell, ask me before you make anything.\n2. **Make 3 rough versions that are really different**, not small variations of one idea. Label them A, B and C, and give each one a one-line summary of the idea behind it. Pick the cheapest form that answers the question: a short outline, a table, a sample message, a few lines of code, a text sketch of a screen, a sample test case list.\n3. **Keep them rough.** No polish, no edge cases, no explanations beyond what I need to react. Each version should take seconds to read.\n4. **Ask me to react**: which one is closest, what to keep from the others, and what is wrong. Then make the next round from my reaction. Show the whole current version each time, so I can see what changed.\n5. **Stop when I pick one.** State the decision in one or two lines (the question and its answer). The prototype is throwaway: the decision is what we keep.\n\nIf I paste or attach real material (a file, a screenshot, an existing document), base the versions on it instead of inventing examples.\n</skill>\n", "wait-what": "<skill name=\"wait-what\">\n<!-- PROTOTYPE, throwaway. Adapted from mattpocock/skills (wait-what, commit 5863806). MIT, Copyright (c) 2026 Matt Pocock. -->\n\nWait, I don't understand where you've got to here. Re-pitch your last message:\n\n- Give me a little context first: what we are doing and where we are now.\n- Write in ASD-STE100 Simplified Technical English: short sentences, one idea per sentence, active voice, common words.\n- Use the same words for things that we agreed earlier in this chat. Don't introduce new terms.\n</skill>\n"};
+const LICENCE = "Adapted from mattpocock/skills (https://github.com/mattpocock/skills),\ncommit 5863806. Changed for our team.\n\nMIT License\n\nCopyright (c) 2026 Matt Pocock\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n";
+const META = {
+  "grill-me":  "Start of any task: the AI interviews you before it produces anything.",
+  "prototype": "You can't decide in the abstract: the AI makes 3 rough versions (A/B/C) to react to.",
+  "wait-what": "The AI lost you: it re-explains its last message in short, plain sentences."
+};
+const SOURCES = [
+  ["Grilling", "https://github.com/mattpocock/skills/blob/5863806dd4e15c63174bee4e7515a4256792ecfa/skills/productivity/grilling/SKILL.md", "grilling SKILL.md", "https://code.claude.com/docs/en/best-practices#brainstorm-with-claude-first", "Anthropic: Brainstorm with Claude first"],
+  ["Shared vocabulary", "https://github.com/mattpocock/skills/blob/5863806dd4e15c63174bee4e7515a4256792ecfa/README.md", "mattpocock/skills README, #2", null, null],
+  ["Environment inspection", "https://academy.claude.com/courses/building-with-the-claude-api/environment-inspection", "Claude Academy lesson", "https://code.claude.com/docs/en/best-practices#tell-claude-what-it-cant-see", "Anthropic: Tell Claude what it can't see"],
+  ["Prototype", "https://github.com/mattpocock/skills/blob/5863806dd4e15c63174bee4e7515a4256792ecfa/skills/engineering/prototype/SKILL.md", "prototype SKILL.md", "https://www.aihero.dev/ai-coding-dictionary/prototyping", "AI Coding Dictionary: Prototyping"],
+  ["Plan, then build", "https://github.com/mattpocock/skills/blob/5863806dd4e15c63174bee4e7515a4256792ecfa/skills/engineering/ask-matt/SKILL.md", "ask-matt main flow", "https://code.claude.com/docs/en/best-practices#brainstorm-with-claude-first", "Anthropic: fresh session to build from SPEC.md"],
+  ["Smart zone", "https://www.aihero.dev/ai-coding-dictionary/smart-zone", "AI Coding Dictionary: Smart zone", "https://code.claude.com/docs/en/best-practices#keep-cost-and-context-down", "Anthropic: /clear between tasks"],
+  ["Skills", "https://www.aihero.dev/ai-coding-dictionary/skill", "AI Coding Dictionary: Skill", "https://code.claude.com/docs/en/best-practices#put-team-procedures-in-skills", "Anthropic: Put team procedures in skills"],
+];
+const SUM = {
+  A: "A · one handout.html, 'do this first' order, Copy + Download .md per skill",
+  B: "B · a folder: README.md + skills/*.md to attach + LICENSE",
+  C: "C · no separate file: appendix slides at the end of the deck",
+};
+const esc = s => s.replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+function copy(name, btn) { navigator.clipboard.writeText(SKILLS[name]).then(() => { btn.textContent = "Copied"; setTimeout(() => btn.textContent = "Copy", 1200); }); }
+function dl(name) { const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([SKILLS[name]], {type:"text/markdown"})); a.download = name + ".md"; a.click(); }
+window.copy = copy; window.dl = dl;
+
+document.querySelectorAll("[data-licence]").forEach(el => el.textContent = LICENCE);
+document.querySelectorAll("[data-sources]").forEach(el => {
+  el.innerHTML = "<table><tr><th>Idea</th><th>Primary source</th><th>Also</th></tr>" + SOURCES.map(([i,u1,t1,u2,t2]) =>
+    `<tr><td>${i}</td><td><a href="${u1}">${t1}</a></td><td>${u2 ? `<a href="${u2}">${t2}</a>` : ""}</td></tr>`).join("") + "</table>";
+});
+const names = Object.keys(SKILLS);
+document.querySelector('[data-skills="A"]').innerHTML = names.map(n => `
+  <div class="card"><div class="skillhead"><h3>${n}</h3><span class="muted">${SKILLS[n].length} chars</span>
+  <button class="primary" onclick="copy('${n}', this)">Copy</button><button onclick="dl('${n}')">Download .md</button></div>
+  <p>${META[n]}</p><details><summary>Show the text</summary><pre>${esc(SKILLS[n])}</pre></details></div>`).join("");
+document.querySelector('[data-skills="B"]').innerHTML = names.map(n => `
+  <div class="file" id="f-${n}"><div class="fname"><span>skills/${n}.md</span><span>${SKILLS[n].length} chars</span></div>
+  <div class="body"><pre style="max-height:none">${esc(SKILLS[n])}</pre></div></div>`).join("");
+document.querySelector('[data-skills="C"]').innerHTML = names.map((n, i) => `
+  <div class="slide" style="justify-content:flex-start"><div class="skillhead"><h2 style="flex:1">${n}</h2><button class="primary" onclick="copy('${n}', this)">Copy</button></div>
+  <p style="font-size:1rem;margin:0 0 .5em">${META[n]}</p><pre style="max-height:55%;font-size:.6rem">${esc(SKILLS[n])}</pre>
+  <div class="cap">A${i+2} · Paste at the start of a new Copilot Chat, then your task.</div></div>`).join("");
+document.querySelectorAll("[data-jump]").forEach(s => s.onclick = () => document.getElementById(s.dataset.jump).scrollIntoView({behavior:"smooth"}));
+
+const order = ["A","B","C"];
+function show(v) {
+  order.forEach(k => { document.getElementById("v"+k).classList.toggle("on", k===v); document.querySelector(`#bar [data-v="${k}"]`).classList.toggle("on", k===v); });
+  document.getElementById("sum").textContent = SUM[v];
+  const u = new URL(location); u.searchParams.set("v", v); history.replaceState(null, "", u);
+  window.scrollTo(0, 0);
+}
+document.querySelectorAll("#bar [data-v]").forEach(b => b.onclick = () => show(b.dataset.v));
+document.addEventListener("keydown", e => {
+  const i = order.indexOf(new URL(location).searchParams.get("v") || "A");
+  if (e.key === "ArrowRight") show(order[(i+1)%3]); if (e.key === "ArrowLeft") show(order[(i+2)%3]);
+});
+show(order.includes(new URL(location).searchParams.get("v")) ? new URL(location).searchParams.get("v") : "A");
+</script>
+</body>
+</html>
