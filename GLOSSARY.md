@@ -43,7 +43,7 @@ Having the AI interview you, one round of questions at a time, until you and it 
 _Avoid_: Prompt engineering (when meaning this), interviewing
 
 **Skill**:
-A reusable prompt that sets how the AI works on a kind of task, such as grilling. An agent tool loads it on demand; in a chat tool you paste it in at the start of a new chat.
+A reusable prompt that sets how the AI works on a kind of task, such as grilling. An agent tool loads it on demand; in a chat tool you paste it in at the start of every new chat, or put it in the tool's custom instructions so it applies to every chat.
 _Avoid_: Template, system prompt, custom instructions
 
 **Environment inspection**:
