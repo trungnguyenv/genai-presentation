@@ -29,11 +29,11 @@ The team the talk is given to: developers and testers with limited exposure to g
 _Avoid_: Attendees, users
 
 **Copilot Chat group**:
-The part of the audience whose only AI tool is Microsoft Copilot Chat.
+The part of the audience whose only AI tool at work is Microsoft Copilot Chat.
 _Avoid_: Chat users, basic group
 
 **IDE group**:
-The part of the audience who have Copilot Chat plus an AI coding tool in their IDE, either Cursor or Claude.
+The part of the audience who have, at work, Copilot Chat plus an AI coding tool in their IDE, either Cursor or Claude.
 _Avoid_: Agent group, advanced group, power users
 
 ## Ideas the talk teaches
