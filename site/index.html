@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Let the AI grill you</title>
+<!--
+  The Slides for the Talk. One self-contained file: no CDN, web fonts or images
+  from the network. Each slide is one <section data-slide> below, in order, with
+  its Slide point in <p data-slide-point>. Keys: → or space next, ← previous.
+  The current slide is in the URL hash (#1 to #17).
+-->
+<style>
+  :root {
+    --bg: #0f1020;
+    --frame: #17182e;
+    --fg: #f4f4fb;
+    --muted: #a9abc9;
+    --line: #2f3156;
+    --accent: #ffb547;
+    --ide: #7cc4ff;
+    --chat: #9be39b;
+    --box: #20223f;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; overflow: hidden; background: var(--bg); color: var(--fg); font-family: var(--sans); }
+
+  /* The 16:9 frame is laid out at 1600x900 and scaled to fit the window. */
+  #stage { position: fixed; inset: 0; }
+  #frame { position: absolute; left: 50%; top: 50%; width: 1600px; height: 900px; background: var(--frame); transform: translate(-50%, -50%); overflow: hidden; }
+
+  .slide { position: absolute; inset: 0; padding: 70px 100px 150px; display: none; flex-direction: column; font-size: 40px; line-height: 1.3; }
+  .slide.current { display: flex; }
+  .slide .section { position: absolute; top: 28px; left: 100px; right: 100px; display: flex; justify-content: space-between; font-size: 24px; color: var(--muted); letter-spacing: .04em; text-transform: uppercase; }
+  .slide h1 { font-size: 104px; line-height: 1.05; margin: auto 0 24px; }
+  .slide h2 { font-size: 68px; line-height: 1.1; margin: 30px 0 36px; }
+  .slide p { margin: 0 0 24px; }
+  .slide ul, .slide ol { margin: 0; padding-left: 1.1em; }
+  .slide li { margin: 0 0 18px; }
+  .slide .point { position: absolute; left: 100px; right: 100px; bottom: 36px; margin: 0; padding-top: 18px; border-top: 3px solid var(--accent); font-size: 36px; font-weight: 600; color: var(--accent); }
+  .muted { color: var(--muted); }
+  em.hl { font-style: normal; color: var(--accent); }
+  code { font-family: var(--mono); font-size: .9em; background: var(--box); padding: 2px 10px; border-radius: 8px; }
+  a { color: var(--accent); }
+
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 12px; }
+  .col { background: var(--box); border-radius: 20px; padding: 30px 36px; border-top: 8px solid var(--line); font-size: 34px; }
+  .col h3 { margin: 0 0 16px; font-size: 28px; letter-spacing: .04em; text-transform: uppercase; }
+  .col.ide { border-color: var(--ide); } .col.ide h3 { color: var(--ide); }
+  .col.chat { border-color: var(--chat); } .col.chat h3 { color: var(--chat); }
+
+  .chat-log { display: flex; flex-direction: column; gap: 18px; font-size: 32px; }
+  .msg { max-width: 80%; padding: 16px 26px; border-radius: 22px; background: var(--box); }
+  .msg.me { align-self: flex-end; background: #3a3478; }
+  .msg .who { display: block; font-size: 22px; color: var(--muted); margin-bottom: 4px; text-transform: uppercase; letter-spacing: .05em; }
+  .tag { display: inline-block; font-size: 22px; padding: 2px 12px; border-radius: 999px; margin-left: 10px; vertical-align: middle; background: var(--line); color: var(--fg); }
+  .tag.forgot { background: #5b4a1f; } .tag.new { background: #1f5b3a; }
+
+  .flow { display: flex; align-items: stretch; gap: 18px; margin: auto 0; }
+  .flow .step { flex: 1; background: var(--box); border-radius: 20px; padding: 28px 24px; text-align: center; font-size: 36px; font-weight: 600; }
+  .flow .step small { display: block; font-size: 24px; font-weight: 400; color: var(--muted); margin-top: 10px; }
+  .flow .arrow { align-self: center; font-size: 48px; color: var(--accent); }
+
+  blockquote { margin: auto 0; font-size: 46px; line-height: 1.35; }
+  blockquote strong { color: var(--accent); }
+  blockquote footer { margin-top: 30px; font-size: 36px; color: var(--muted); }
+</style>
+</head>
+<body>
+<div id="stage"><div id="frame" data-frame>
+
+<!-- ===================== Slide 1: Let the AI grill you (title) ===================== -->
+<section class="slide" data-slide>
+  <div class="section"><span>Open</span><span>2 Dec 2026</span></div>
+  <h1>Let the AI<br>grill you</h1>
+  <p class="muted">Understanding first, output second: generative AI for developers and testers.</p>
+  <p class="point" data-slide-point>This talk was planned by letting an AI interview me, not by writing prompts.</p>
+</section>
+
+<!-- ===================== Slide 2: The usual way: misunderstanding ===================== -->
+<section class="slide" data-slide>
+  <div class="section"><span>Open</span><span>2</span></div>
+  <h2>The usual way: misunderstanding</h2>
+  <p>Think of the AI as <em class="hl">a developer who knows everything except your expectations.</em></p>
+  <ul>
+    <li>You write a prompt. Wherever it says nothing, the AI fills the gap with a guess from its training data.</li>
+    <li>It guesses the most typical answer, not yours.</li>
+    <li>The result is confident, plausible, and not what you meant.</li>
+  </ul>
+  <p class="point" data-slide-point>The AI knows everything except what you expect, so it guesses.</p>
+</section>
+
+<!-- ===================== Slide 3: Flip it ===================== -->
+<section class="slide" data-slide>
+  <div class="section"><span>Grilling</span><span>3</span></div>
+  <h2>Flip it</h2>
+  <p>Don't write a long prompt. Let the AI ask, and you answer, one round at a time.</p>
+  <div class="cols">
+    <div class="col"><h3>It brings out</h3>what you forgot to say.</div>
+    <div class="col"><h3>It brings in</h3>ideas you hadn't thought of.</div>
+  </div>
+  <p class="point" data-slide-point>Grilling means the AI interviews you until you both understand the task.</p>
+</section>
+
+<!-- ===================== Slide 4: Example, IDE group ===================== -->
+<section class="slide" data-slide>
+  <div class="section"><span>Grilling · IDE group: Cursor or Claude</span><span>4</span></div>
+  <h2>Example: a developer in the IDE</h2>
+  <div class="chat-log">
+    <div class="msg me"><span class="who">Developer</span>Add retries to the payment client. Grill me first.</div>
+    <div class="msg"><span class="who">Agent</span>Q1: Which errors can be retried? Timeouts and 503s only, or every failure?</div>
+    <div class="msg"><span class="who">Agent</span>Q2: Are the payment calls idempotent? If not, a retry can charge the customer twice.</div>
+  </div>
+  <p class="point" data-slide-point>In the IDE, grilling stops the agent from confidently changing the wrong thing.</p>
+</section>
+
+<!-- ===================== Slide 5: Example, Copilot Chat group ===================== -->
+<section class="slide" data-slide>
+  <div class="section"><span>Grilling · Copilot Chat group</span><span>5</span></div>
+  <h2>Example: a tester in Copilot Chat</h2>
+  <div class="chat-log">
+    <div class="msg me"><span class="who">Tester</span>I need test cases for the new password reset flow. Before you write any, grill me.</div>
+    <div class="msg"><span class="who">Copilot</span>How long is a reset link valid? Is there a rate limit? Email only, or SMS too?<span class="tag forgot">forgot to say</span></div>
+    <div class="msg"><span class="who">Copilot</span>Should a reset sign the user out of their other sessions?<span class="tag new">never thought of</span></div>
+  </div>
+  <p class="point" data-slide-point>The questions bring out what you forgot, and ideas you never had.</p>
+</section>
+
+<!-- ===================== Slide 6: When to stop ===================== -->
+<section class="slide" data-slide>
+  <div class="section"><span>Grilling</span><span>6</span></div>
+  <h2>When to stop</h2>
+  <ul>
+    <li>Your answers turn into "don't care".</li>
+    <li>Then ask for a summary of the decisions.</li>
+    <li>Read it. If you would have written the same, you're done.</li>
+  </ul>
+  <p class="point" data-slide-point>Stop when you and the AI would write the same spec.</p>
+</section>
+
+<!-- ===================== Slide 7: Now watch how this talk was made ===================== -->
+<section class="slide" data-slide>
+  <div class="section"><span>Grilling</span><span>7</span></div>
+  <h1>Now watch how<br>this talk was made</h1>
+  <p class="muted">Live demo</p>
+  <p class="point" data-slide-point>This talk was made by letting the AI grill me.</p>
+</section>
+
+<!-- ===================== Slide 8: Shared vocabulary ===================== -->
+<section class="slide" data-slide>
+  <div class="section"><span>Sharpen</span><span>8</span></div>
+  <h2>Shared vocabulary</h2>
+  <p>"Order" means three things across our teams. Write down what each word means, once.</p>
+  <div class="cols">
+    <div class="col ide"><h3>Cursor or Claude</h3>Keep a <code>GLOSSARY.md</code> in the repo, like the one in the demo. The agent reads it.</div>
+    <div class="col chat"><h3>Copilot Chat</h3>Paste the glossary at the start of a new chat.</div>
+  </div>
+  <p class="point" data-slide-point>Agree on words once, and every later chat starts from them.</p>
+</section>
+
+<!-- ===================== Slide 9: Environment inspection ===================== -->
+<section class="slide" data-slide>
+  <div class="section"><span>Sharpen</span><span>9</span></div>
+  <h2>Environment inspection</h2>
+  <p>Your description of a problem is a guess too. Let the AI see the real material.</p>
+  <div class="cols">
+    <div class="col ide"><h3>Cursor or Claude</h3>Let the agent read the files and run the tests itself.</div>
+    <div class="col chat"><h3>Copilot Chat</h3>The chat can't look it up, so paste or attach the real file, error or document.</div>
+  </div>
+  <p class="point" data-slide-point>Show the AI the real thing, not your description of it.</p>
+</section>
+
+<!-- ===================== Slide 10: Prototype ===================== -->
+<section class="slide" data-slide>
+  <div class="section"><span>Sharpen</span><span>10</span></div>
+  <h2>Prototype</h2>
+  <p>Ask for a cheap, rough version first, and react to it.</p>
+  <div class="cols">
+    <div class="col ide"><h3>Cursor or Claude</h3>A throwaway HTML page or script that answers one question.</div>
+    <div class="col chat"><h3>Copilot Chat</h3>"Give me three rough versions of this bug report template."</div>
+  </div>
+  <p class="point" data-slide-point>React to something rough before you decide.</p>
+</section>
+
+<!-- ===================== Slide 11: Plan, then build ===================== -->
+<section class="slide" data-slide>
+  <div class="section"><span>Then build</span><span>11</span></div>
+  <h2>Plan, then build</h2>
+  <p>Grilling ends in a plan. Build from that plan, in a separate step.</p>
+  <div class="cols">
+    <div class="col ide"><h3>Cursor or Claude</h3>Save the plan to a file. Start a new session to build from it.</div>
+    <div class="col chat"><h3>Copilot Chat</h3>Copy the summary of decisions into a new chat, then ask for the output.</div>
+  </div>
+  <p class="point" data-slide-point>Decide first, build second.</p>
+</section>
+
+<!-- ===================== Slide 12: Smart zone ===================== -->
+<section class="slide" data-slide>
+  <div class="section"><span>Then build</span><span>12</span></div>
+  <h2>Smart zone</h2>
+  <p>A long chat full of old tasks makes the AI less sharp. One task per chat.</p>
+  <div class="cols">
+    <div class="col ide"><h3>Cursor or Claude</h3><code>/clear</code> or a new session.</div>
+    <div class="col chat"><h3>Copilot Chat</h3>The <b>New chat</b> button.</div>
+  </div>
+  <p class="point" data-slide-point>Start a fresh chat for each task to keep the AI at its sharpest.</p>
+</section>
+
+<!-- ===================== Slide 13: Skills ===================== -->
+<section class="slide" data-slide>
+  <div class="section"><span>Then build</span><span>13</span></div>
+  <h2>Skills</h2>
+  <p>A skill is a reusable prompt that sets how the AI works on a kind of task, such as grilling.</p>
+  <div class="cols">
+    <div class="col ide"><h3>Cursor or Claude</h3>Install the skill. The tool loads it when the task needs it.</div>
+    <div class="col chat"><h3>Copilot Chat</h3>Paste the skill, in its <code>&lt;skill&gt;</code> tags, at the start of a new chat.</div>
+  </div>
+  <p class="point" data-slide-point>Write down how you want the AI to work once, then reuse it.</p>
+</section>
+
+<!-- ===================== Slide 14: Recap, one flow ===================== -->
+<section class="slide" data-slide>
+  <div class="section"><span>Close</span><span>14</span></div>
+  <h2>Recap: one flow</h2>
+  <div class="flow">
+    <div class="step">Grill</div>
+    <div class="arrow">→</div>
+    <div class="step">Sharpen<small>vocabulary, inspection, prototype</small></div>
+    <div class="arrow">→</div>
+    <div class="step">Plan</div>
+    <div class="arrow">→</div>
+    <div class="step">Build<small>in a fresh chat</small></div>
+  </div>
+  <p class="muted">All of it packaged as skills.</p>
+  <p class="point" data-slide-point>Understanding first, output second.</p>
+</section>
+
+<!-- ===================== Slide 15: Try it this week ===================== -->
+<section class="slide" data-slide>
+  <div class="section"><span>Close</span><span>15</span></div>
+  <h2>Try it this week</h2>
+  <ol>
+    <li>Pick your next ticket.</li>
+    <li>Open a new chat. Paste <b>grill-me</b> from the handout, then your task.</li>
+    <li>Answer one round of questions.</li>
+  </ol>
+  <p class="point" data-slide-point>Start with one grilling round on your next task.</p>
+</section>
+
+<!-- ===================== Slide 16: A wise man once said ===================== -->
+<section class="slide" data-slide>
+  <div class="section"><span>Close</span><span>16</span></div>
+  <blockquote data-quote>
+    <strong>Don't be afraid to learn something just because you may not end up doing it.</strong> Learning is about developing your ability to learn independently, so you can quickly adapt, acquire new skills, and explore different fields in a world that is constantly changing and full of uncertainty!
+    <footer data-quote-credit>— a wise man</footer>
+  </blockquote>
+  <p class="point" data-slide-point>Learn it even if you never use it at work.</p>
+</section>
+
+<!-- ===================== Slide 17: Go further ===================== -->
+<section class="slide" data-slide>
+  <div class="section"><span>Close</span><span>17</span></div>
+  <h2>Go further</h2>
+  <p class="muted">Who to follow</p>
+  <ul>
+    <li><b>Matt Pocock</b>: AI Hero and mattpocock/skills</li>
+    <li><b>Jeff Su</b></li>
+    <li><b>Kun Chen</b></li>
+  </ul>
+  <p style="margin-top:auto">All links and skills are in the handout:<br><a href="handout/index.html" data-handout-link>trungnguyenv.github.io/genai-presentation/handout/</a></p>
+  <p class="point" data-slide-point>The ideas outlast the tools: take them wherever you explore next.</p>
+</section>
+
+</div></div>
+<script>
+  const slides = [...document.querySelectorAll("[data-slide]")];
+  const frame = document.getElementById("frame");
+
+  function fromHash() {
+    const n = Number(location.hash.slice(1));
+    return Number.isInteger(n) && n >= 1 && n <= slides.length ? n : 1;
+  }
+
+  function show(n) {
+    slides.forEach((s, i) => s.classList.toggle("current", i === n - 1));
+    if (location.hash !== "#" + n) history.replaceState(null, "", "#" + n);
+  }
+
+  function fit() {
+    const scale = Math.min(innerWidth / frame.offsetWidth, innerHeight / frame.offsetHeight);
+    frame.style.transform = `translate(-50%, -50%) scale(${scale})`;
+  }
+
+  document.addEventListener("keydown", (e) => {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    const n = fromHash();
+    if (e.key === "ArrowRight" || e.key === " ") show(Math.min(n + 1, slides.length));
+    else if (e.key === "ArrowLeft") show(Math.max(n - 1, 1));
+    else return;
+    e.preventDefault();
+  });
+  addEventListener("hashchange", () => show(fromHash()));
+  addEventListener("resize", fit);
+  fit();
+  show(fromHash());
+</script>
+</body>
+</html>

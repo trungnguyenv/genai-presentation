@@ -1,0 +1,14 @@
+{
+  "name": "genai-presentation",
+  "private": true,
+  "description": "The Slides and handout for the generative AI Talk",
+  "scripts": {
+    "start": "live-server site --open=/",
+    "browsers": "PLAYWRIGHT_BROWSERS_PATH=0 playwright install chromium",
+    "test": "PLAYWRIGHT_BROWSERS_PATH=0 playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.65.1",
+    "live-server": "1.2.2"
+  }
+}

@@ -4,6 +4,13 @@
 
 Slides and ideas for my upcoming generative AI presentation.
 
+## The site
+
+- `site/` is what GitHub Pages publishes, and nothing else goes in it: the Slides at `site/index.html`, the handout at `site/handout/index.html`, and `.nojekyll`.
+- Both pages are hand-written and self-contained: inline CSS and JS, system fonts, no network loads. Each slide is one `<section data-slide>` with its Slide point in `<p data-slide-point>`.
+- `npm start` serves `site/` with live reload. `npm test` runs the Playwright suite in `tests/`. Run `npm run browsers` once after `npm ci` to fetch Chromium into `node_modules`, never a global install.
+- A push to `main` runs `.github/workflows/pages.yml`: tests first, then the deploy.
+
 ## Agent skills
 
 ### Issue tracker
